@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 17:50:56 -0500
+Subject: [PATCH] final server brand
+
+
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index 7c48b4acad1f418dbc94f4dd7c06b913451977ee..00b64911b778d982ab42bc96d575ce9e5ed668f4 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -1952,7 +1952,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+ 
+     @DontObfuscate
+     public String getServerModName() {
+-        return "LiminalPaper"; // Paper
++        return "Liminal SMP (ShadowPaper)"; // Paper
+     }
+ 
+     public SystemReport fillSystemReport(SystemReport systemReport) {
