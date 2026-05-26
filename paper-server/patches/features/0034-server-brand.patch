@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 17:34:53 -0500
+Subject: [PATCH] server brand
+
+
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index ca2caace6aab0dfcb0ab7a0fd28e66555c62fdc5..7c48b4acad1f418dbc94f4dd7c06b913451977ee 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -1952,7 +1952,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+ 
+     @DontObfuscate
+     public String getServerModName() {
+-        return io.papermc.paper.ServerBuildInfo.buildInfo().brandName(); // Paper
++        return "LiminalPaper"; // Paper
+     }
+ 
+     public SystemReport fillSystemReport(SystemReport systemReport) {
