@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 18:50:23 -0500
+Subject: [PATCH] collecting updater
+
+
+diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
+index 579bbba4e823d4d0318e58759ca732b7c8e4d865..5bdae863dd462451fbefe9c42d2da58b899168e3 100644
+--- a/net/minecraft/world/level/Level.java
++++ b/net/minecraft/world/level/Level.java
+@@ -861,7 +861,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         this.thread = Thread.currentThread();
+         this.biomeManager = new BiomeManager(this, biomeZoomSeed);
+         this.isDebug = isDebug;
+-        this.neighborUpdater = new CollectingNeighborUpdater(this, maxChainedNeighborUpdates);
++        this.neighborUpdater = new net.zenntet.liminal.CollectingNeighborUpdaterWrapper((Level) (Object)this);
+         this.registryAccess = registryAccess;
+         this.palettedContainerFactory = PalettedContainerFactory.create(registryAccess);
+         this.damageSources = new DamageSources(registryAccess);

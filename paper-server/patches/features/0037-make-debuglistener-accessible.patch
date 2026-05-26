@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 18:47:27 -0500
+Subject: [PATCH] make debuglistener accessible
+
+
+diff --git a/net/minecraft/world/level/redstone/CollectingNeighborUpdater.java b/net/minecraft/world/level/redstone/CollectingNeighborUpdater.java
+index 0a60ff97dc77108997568c75c94327cb6858018f..726e5f53ad12e57c9edd355e3fee468aa8ad4cf0 100644
+--- a/net/minecraft/world/level/redstone/CollectingNeighborUpdater.java
++++ b/net/minecraft/world/level/redstone/CollectingNeighborUpdater.java
+@@ -21,7 +21,7 @@ public class CollectingNeighborUpdater implements NeighborUpdater {
+     private final ArrayDeque<CollectingNeighborUpdater.NeighborUpdates> stack = new ArrayDeque<>();
+     private final List<CollectingNeighborUpdater.NeighborUpdates> addedThisLayer = new ArrayList<>();
+     private int count = 0;
+-    private @Nullable Consumer<BlockPos> debugListener;
++    public @Nullable Consumer<BlockPos> debugListener;
+ 
+     public CollectingNeighborUpdater(Level level, int maxChainedNeighborUpdates) {
+         this.level = level;
