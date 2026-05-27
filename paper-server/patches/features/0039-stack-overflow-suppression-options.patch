@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 19:03:09 -0500
+Subject: [PATCH] stack overflow suppression options
+
+
+diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
+index 5bdae863dd462451fbefe9c42d2da58b899168e3..fbc8081e4aaad6bc9607b975a91f0ceae0d433b3 100644
+--- a/net/minecraft/world/level/Level.java
++++ b/net/minecraft/world/level/Level.java
+@@ -861,7 +861,11 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
+         this.thread = Thread.currentThread();
+         this.biomeManager = new BiomeManager(this, biomeZoomSeed);
+         this.isDebug = isDebug;
+-        this.neighborUpdater = new net.zenntet.liminal.CollectingNeighborUpdaterWrapper((Level) (Object)this);
++        if (net.zenntet.liminal.ConfigConstants.BringBackStackOverflowSuppression) {
++            this.neighborUpdater = new net.zenntet.liminal.CollectingNeighborUpdaterWrapper((Level) (Object)this);
++        } else {
++            this.neighborUpdater = new CollectingNeighborUpdater(this, maxChainedNeighborUpdates);
++        }
+         this.registryAccess = registryAccess;
+         this.palettedContainerFactory = PalettedContainerFactory.create(registryAccess);
+         this.damageSources = new DamageSources(registryAccess);
+diff --git a/net/minecraft/world/level/redstone/InstantNeighborUpdater.java b/net/minecraft/world/level/redstone/InstantNeighborUpdater.java
+index 12b8157c77f50c974e638d7285efbfad502e8196..f806af1a205dfb5bb5e35cb0425ca65e2f9da9e1 100644
+--- a/net/minecraft/world/level/redstone/InstantNeighborUpdater.java
++++ b/net/minecraft/world/level/redstone/InstantNeighborUpdater.java
+@@ -16,7 +16,11 @@ public class InstantNeighborUpdater implements NeighborUpdater {
+ 
+     @Override
+     public void shapeUpdate(Direction direction, BlockState state, BlockPos pos, BlockPos neighborPos, @Block.UpdateFlags int flags, int recursionLeft) {
+-        NeighborUpdater.executeShapeUpdate(this.level, direction, pos, neighborPos, state, flags, recursionLeft - 1);
++        if (net.zenntet.liminal.ConfigConstants.BringBackStackOverflowSuppression) {
++            NeighborUpdater.executeShapeUpdate(this.level, direction, pos, neighborPos, state, flags, recursionLeft + 1);
++        } else {
++            NeighborUpdater.executeShapeUpdate(this.level, direction, pos, neighborPos, state, flags, recursionLeft - 1);
++        }
+     }
+ 
+     @Override
