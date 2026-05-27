@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 20:33:55 -0500
+Subject: [PATCH] trapdoor update skipping
+
+
+diff --git a/net/minecraft/world/level/block/RedStoneWireBlock.java b/net/minecraft/world/level/block/RedStoneWireBlock.java
+index 6d98bc37d88459d1e0a171b52bbff5810d775c38..b6f5ad1e1454ec9d2ad72a30784f3c171999e492 100644
+--- a/net/minecraft/world/level/block/RedStoneWireBlock.java
++++ b/net/minecraft/world/level/block/RedStoneWireBlock.java
+@@ -237,7 +237,15 @@ public class RedStoneWireBlock extends Block {
+         BlockPos blockPos = pos.relative(direction);
+         BlockState blockState = level.getBlockState(blockPos);
+         if (nonNormalCubeAbove) {
+-            boolean flag = blockState.getBlock() instanceof TrapDoorBlock || this.canSurviveOn(level, blockPos, blockState);
++            // boolean flag = blockState.getBlock() instanceof TrapDoorBlock || this.canSurviveOn(level, blockPos, blockState);
++            // remove check for TrapDoorBlock
++            boolean flag;
++
++            if (net.zenntet.liminal.ConfigConstants.BringBackTrapdoorUpdateSkipping) {
++                flag = this.canSurviveOn(level, blockPos, blockState);
++            } else {
++                flag = blockState.getBlock() instanceof TrapDoorBlock || this.canSurviveOn(level, blockPos, blockState);
++            }
+             if (flag && shouldConnectTo(level.getBlockState(blockPos.above()))) {
+                 if (blockState.isFaceSturdy(level, blockPos, direction.getOpposite())) {
+                     return RedstoneSide.UP;
