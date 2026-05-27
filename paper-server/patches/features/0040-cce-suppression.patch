@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: zenntet <airkraftvideos@gmail.com>
+Date: Tue, 26 May 2026 19:52:54 -0500
+Subject: [PATCH] cce suppression
+
+
+diff --git a/net/minecraft/world/level/block/ShulkerBoxBlock.java b/net/minecraft/world/level/block/ShulkerBoxBlock.java
+index cb0471b06c33d1f79ba5b7a9b6036ba6b089d2be..92d3cce665530b7c834d9417fd0075f2953a5cf7 100644
+--- a/net/minecraft/world/level/block/ShulkerBoxBlock.java
++++ b/net/minecraft/world/level/block/ShulkerBoxBlock.java
+@@ -181,7 +181,11 @@ public class ShulkerBoxBlock extends BaseEntityBlock {
+ 
+     @Override
+     protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+-        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
++        if (net.zenntet.liminal.ConfigConstants.BringBackClassCastExceptionSuppression) {
++            return AbstractContainerMenu.getRedstoneSignalFromContainer((net.minecraft.world.Container) level.getBlockEntity(pos));
++        } else {
++            return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
++        }
+     }
+ 
+     public static Block getBlockByColor(@Nullable DyeColor color) {
